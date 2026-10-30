@@ -85,15 +85,15 @@ curl localhost:8080/api/quota/status -H "X-User-Id: andruw"
 
 | Variable | Default | Purpose |
 |----------|---------|---------|
-| `PORT` | 8080 | HTTP port (Railway sets it) |
-| `FRONTEND_URL` | `http://localhost:5173` | Allowed CORS origins, comma-separated (e.g. your Vercel URL) |
+| `PORT` | 8080 | HTTP port (Render sets it) |
+| `FRONTEND_URL` | localhost:5173 + the Vercel URL | Allowed CORS origins, comma-separated. Wildcards supported |
 | `APP_TIMEZONE` | `America/Bogota` | Zone for daily history and resets |
 | `AI_MOCK_LATENCY_MS` | 1200 | Simulated AI latency |
 
-## Deploy on Railway
+## Deploy on Render
 
-1. Railway → New Project → Deploy from GitHub repo → `camilin0811/Backend-Proxy` (the `Dockerfile` at the repository root is detected automatically).
-2. Set `FRONTEND_URL` to your Vercel domain (e.g. `https://my-app.vercel.app`).
-3. Settings → Networking → Generate Domain.
+1. Render → New → Web Service → `camilin0811/Backend-Proxy`, Language **Docker** (the `Dockerfile` at the repository root is detected automatically).
+2. Health Check Path: `/actuator/health`.
+3. The Vercel origin is already allowed by default, so no environment variable is required. Set `FRONTEND_URL` only to point the backend at a different frontend.
 
 > Data is stored in memory, so it resets when the service restarts.
